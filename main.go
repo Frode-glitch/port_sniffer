@@ -7,22 +7,26 @@ import (
 
 func main() {
 	var ip string
+	//	correct_port := [...]int{}
+	port := [77]string{"7", "19", "20", "21", "22", "23", "25", "42", "43", "49", "53", "67", "68", "69", "70", "79", "80", "88", "102", "110", "113", "119", "123", "135", "137", "138", "139", "143", "161", "162", "177", "179", "194", "201", "264", "318", "381", "383", "389", "411", "412", "427", "443", "445", "464", "465", "497", "500", "512", "513", "514", "515", "520", "521", "540", "548", "554", "546", "547", "560", "563", "587", "591", "593", "596", "631", "636", "639", "646", "691", "860", "873", "902", "989", "990", "993", "995"}
 
 	fmt.Print("give me a ip: ")
 	fmt.Scan(&ip)
 
-	conn, err := net.Dial("tcp", ip+":80")
-	if err != nil {
-		fmt.Println("Error connecting to server:", err)
-		return
-	}
-	defer conn.Close()
+	for i := 0; i < len(port); i++ {
+		conn, err := net.Dial("tcp", ip+":"+port[i])
+		if err != nil {
+			fmt.Println("Error connecting to server:", err)
+			continue
+		}
 
-	message := "Hello, Server!"
-	_, err = conn.Write([]byte(message))
-	if err != nil {
-		fmt.Println("Error writing to connection:", err)
-		return
+		message := "Hello, Server!"
+		_, err = conn.Write([]byte(message))
+		if err != nil {
+			fmt.Println("Error writing to connection:", err)
+			continue
+		}
+		fmt.Println(port[i] + " is an open port")
+		conn.Close()
 	}
-	fmt.Println("Sent message to server:", message)
 }
