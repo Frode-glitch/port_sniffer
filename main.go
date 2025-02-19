@@ -20,12 +20,6 @@ func main() {
 			continue
 		}
 
-		message := "Hello, Server!"
-		_, err = conn.Write([]byte(message))
-		if err != nil {
-			fmt.Println("Error writing to connection:", err)
-			continue
-		}
 		fmt.Println(port[i] + " is an open port")
 		conn.Close()
 	}
